@@ -1,4 +1,4 @@
-from libs.bit_vector import BitVector
+from halfkp_libs.bit_vector import BitVector
 import unittest
 import torch
 

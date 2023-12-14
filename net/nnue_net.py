@@ -1,4 +1,4 @@
-from libs.chess_lib import Chess_Lib
+from halfkp_libs.chess_lib import Chess_Lib
 import torch
 import torch.nn.init as init
 

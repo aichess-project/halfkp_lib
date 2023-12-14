@@ -1,7 +1,7 @@
 import chess
 import torch
-from libs.chess_lib import Chess_Lib
-from libs.bit_vector import BitVector
+from halfkp_libs.chess_lib import Chess_Lib
+from halfkp_libs.bit_vector import BitVector
 
 class Half_KP_Converter:
 

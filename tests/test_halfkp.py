@@ -1,4 +1,4 @@
-from libs.halfkp_lib import Half_KP_Converter
+from halfkp_libs.halfkp_lib import Half_KP_Converter
 import unittest
 import torch
 
