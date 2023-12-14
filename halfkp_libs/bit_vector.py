@@ -3,26 +3,25 @@ import torch
 class BitVector:
     def __init__(self, size):
         self.size = size
+
+        # Create a PyTorch tensor with 20 int8 values, all set to 0
+        self.master_bits = torch.zeros(size, dtype=torch.bool)
         self.tensor_size, rest = divmod(size, 32)
         if rest > 1:
            self.tensor_size += 1
-        self.bits = 0
 
+    def new_vector(self):
+       self.bits = self.master_bits.clone()
+       
     def set_bit(self, index):
-        """Set the bit at the given index to 1."""
-        if 0 <= index < self.size:
-            self.bits |= 1 << index
+        self.bits[index] = True
 
     def clear_bit(self, index):
-        """Set the bit at the given index to 0."""
-        if 0 <= index < self.size:
-            self.bits &= ~(1 << index)
+        self.bits[index] = False
 
     def get_bit(self, index):
         """Get the value of the bit at the given index."""
-        if 0 <= index < self.size:
-            return (self.bits >> index) & 1
-        return None
+        return self.bits[index]
 
     def get_range(self, start, end):
         """Return a part of the bit vector defined by start and end indices."""
@@ -43,11 +42,8 @@ class BitVector:
       return result
 
     def to_tensor(self):
-        """Convert the bit vector to a PyTorch tensor of 1280 int32 values."""
-        # Create a tensor with 1280 elements, each representing a 32-bit integer
-        tensor_values = [self.get_bit(i) for i in range(self.size)]
-        return torch.tensor(tensor_values, dtype=torch.int8)
-
+      return self.bits
+    
     def __str__(self):
         string = ""
         for i in range( self.size):

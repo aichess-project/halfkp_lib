@@ -1,5 +1,5 @@
-from libs.halfkp_lib import Half_KP_Converter
-from libs.chess_lib import Chess_Lib
+from halfkp_libs.halfkp_lib import Half_KP_Converter
+from halfkp_libs.chess_lib import Chess_Lib
 from torch.utils.data import Dataset, DataLoader
 import os
 
