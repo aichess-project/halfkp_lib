@@ -1,17 +1,17 @@
 import torch
 
 class BitVector:
-    def __init__(self, size):
+    def __init__(self, size, nz_str = ""):
         self.size = size
-
-        # Create a PyTorch tensor with 20 int8 values, all set to 0
         self.master_bits = torch.zeros(size, dtype=torch.bool)
-        self.tensor_size, rest = divmod(size, 32)
-        if rest > 1:
-           self.tensor_size += 1
+        self.new_vector(nz_str)
 
-    def new_vector(self):
+    def new_vector(self, nz_str = ""):
        self.bits = self.master_bits.clone()
+       if nz_str != "":
+          nz_bits = int(nz_str.split('-'))
+          for bit in nz_bits:
+             self.set_bit(bit)
        
     def set_bit(self, index):
         self.bits[index] = True
@@ -45,10 +45,14 @@ class BitVector:
       return self.bits
     
     def __str__(self):
-        string = ""
-        for i in range( self.size):
-          string += str(self.get_bit(i))
-        return string
+      string = ""
+      nzs = self.get_non_zeros()
+      for i in nzs:
+        nz_str = str(i)
+        if string != "":
+            nz_str = "-" + nz_str
+        string += nz_str
+      return string
 
     def get_non_zeros(self):
       result = []
